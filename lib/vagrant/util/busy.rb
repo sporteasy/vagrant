@@ -43,7 +43,7 @@ module Vagrant
 
             # Remove the signal trap if no more registered callbacks exist
             if registered.empty?
-              sun.misc.Signal.handle(sun.misc.Signal.new('INT'), sun.misc.SignalHandler.SIG_DFL)
+              Java::SunMisc::Signal.handle(Java::SunMisc::Signal.new('INT'), Java::SunMisc::SignalHandler.SIG_DFL)
             end
           end
         end
