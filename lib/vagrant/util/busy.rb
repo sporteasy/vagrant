@@ -1,3 +1,5 @@
+require 'java'
+
 module Vagrant
   module Util
     # Utility class which allows blocks of code to be marked as "busy"
@@ -40,7 +42,9 @@ module Vagrant
             registered.delete(sig_callback)
 
             # Remove the signal trap if no more registered callbacks exist
-            Signal.trap("INT", "DEFAULT") if registered.empty?
+            if registered.empty?
+              Java::SunMisc::Signal.handle(Java::SunMisc::Signal.new('INT'), Java::SunMisc::SignalHandler.SIG_DFL)
+            end
           end
         end
 
